@@ -27,7 +27,8 @@ if has_cmd apt; then
   apt update -y
   DEBIAN_FRONTEND=noninteractive apt install -y squid curl unzip || true
 else
-  echo "[1/6] apt не найден — убедитесь, что squid установлен вручную."i
+  echo "[1/6] apt не найден — убедитесь, что squid установлен вручную."
+fi
 
 # 2) Резервная копия и запись нового конфига
 echo "[2/6] Настройка конфигурации Squid (слушать на всех интерфейсах 0.0.0.0)..."
@@ -98,7 +99,8 @@ if has_cmd squid; then
   nohup squid -f "${CONF}" > /var/log/squid/nohup-squid.log 2>&1 &
   sleep 2
 else
-  echo "Squid не найден — установите squid вручную."i
+  echo "Squid не найден — установите squid вручную."
+fi
 
 # 6) Брандмауэр (ufw)
 echo "[6/6] Настройка ufw (если есть)..."
@@ -110,7 +112,8 @@ if has_cmd ufw; then
   ufw allow "${PORT}/tcp"
   ufw --force enable
 else
-  echo "ufw не найден — пропускаем."i
+  echo "ufw не найден — пропускаем."
+fi
 
 # Вывод информации
 SERVER_IP="$(hostname -I | awk '{print $1}' || true)"
